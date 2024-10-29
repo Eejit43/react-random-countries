@@ -19,6 +19,7 @@ const AmountInput = styled.input`
     display: block;
     font-size: large;
     margin: auto;
+    margin-top: 20px;
 `;
 
 const CardsContainer = styled.div`
@@ -32,6 +33,7 @@ const CardsContainer = styled.div`
 
     & div {
         border: 1px solid black;
+        border-radius: 5px;
         padding: 10px;
         max-width: 300px;
 
@@ -52,16 +54,23 @@ export default function App() {
             .then((data) => setCountries(data));
     }, []);
 
-    const randomCountries = new Array(Math.min(Math.max(Number.isNaN(amount) ? 0 : amount, 0), countries.length))
+    const randomCountries = new Array(Number.isNaN(amount) ? 0 : amount)
         .fill(null)
-        .map(() => countries[Math.floor(Math.random() * countries.length)]);
+        .map(() => countries[Math.floor(Math.random() * countries.length)])
+        .sort((a, b) => a.name.common.localeCompare(b.name.common));
 
     return (
         <>
             <AmountInput
                 type="number"
                 value={Number.isNaN(amount) ? '' : amount}
-                onChange={(event) => setAmount(Number.parseInt(event.target.value))}
+                onChange={(event) => {
+                    const value = Number.parseInt(event.target.value);
+
+                    if (Number.isNaN(value)) return setAmount(value);
+
+                    setAmount(value > 0 ? (value <= 10 ? value : 10) : 0);
+                }}
             />
             <CardsContainer>
                 {randomCountries.map((country) => (
