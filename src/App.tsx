@@ -31,7 +31,7 @@ const CardsContainer = styled.div`
     max-width: 80%;
     justify-self: center;
 
-    & div {
+    & > div {
         border: 1px solid black;
         border-radius: 5px;
         padding: 10px;
@@ -39,6 +39,10 @@ const CardsContainer = styled.div`
 
         & h2 {
             margin-top: 0;
+        }
+
+        & div:first-of-type {
+            margin-bottom: 1rem;
         }
     }
 `;
@@ -72,6 +76,7 @@ export default function App() {
                     setAmount(value > 0 ? (value <= 10 ? value : 10) : 0);
                 }}
             />
+
             <CardsContainer>
                 {randomCountries.map((country) => (
                     <CountryCard key={nanoid()} country={country} />

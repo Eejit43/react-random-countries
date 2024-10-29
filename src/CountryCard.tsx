@@ -6,15 +6,15 @@ export default function CountryCard({ country }: { country: Country }) {
     return (
         <div>
             <h2>{country.name.common}</h2>
-            Capital: {country.capital.join(', ')}
-            <br />
-            <br />
-            Language{languages.length > 1 ? 's' : ''}:
-            <ul>
-                {languages.map((language) => (
-                    <li key={nanoid()}>{language}</li>
-                ))}
-            </ul>
+            <div>Capital: {country.capital.join(', ')}</div>
+            <div>
+                Language{languages.length > 1 ? 's' : ''}:
+                <ul>
+                    {languages.map((language) => (
+                        <li key={nanoid()}>{language}</li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }
